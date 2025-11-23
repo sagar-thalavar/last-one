@@ -6,10 +6,12 @@ A comprehensive application to help users balance College, Work, and Life activi
 
 - **Three Module System**: Track tasks across College, Work, and Life
 - **Balance Score**: Single metric to track overall equilibrium
-- **Time Tracking**: Manual and automatic logging of activities
-- **Analytics & Visualizations**: Weekly and monthly insights
+- **Time Tracking**: Real-time session tracking with module and task selection
+- **Analytics & Visualizations**: Weekly, monthly, and custom date range insights
 - **Personalized Recommendations**: AI-powered suggestions for better balance
-- **Export Options**: CSV/PDF reports for mentors and self-review
+- **Export Options**: CSV/JSON reports for mentors and self-review
+- **GitHub OAuth**: Sign in with GitHub or email/password
+- **Calendar View**: Color-coded monthly calendar with task deadlines
 
 ## Getting Started
 
@@ -26,9 +28,11 @@ npx prisma db push
 
 3. Create a `.env` file with:
 ```
-DATABASE_URL="file:./dev.db"
+DATABASE_URL="your_database_url"
 NEXTAUTH_SECRET="your-secret-key-here"
 NEXTAUTH_URL="http://localhost:3000"
+GITHUB_CLIENT_ID="your_github_client_id" (optional)
+GITHUB_CLIENT_SECRET="your_github_client_secret" (optional)
 ```
 
 4. Run the development server:
@@ -42,8 +46,7 @@ Open [http://localhost:3000](http://localhost:3000) to see the app.
 
 - **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
 - **Backend**: Next.js API Routes
-- **Database**: SQLite (Prisma ORM)
-- **Authentication**: NextAuth.js
+- **Database**: PostgreSQL (Prisma ORM) - supports SQLite for development
+- **Authentication**: NextAuth.js (Email/Password + GitHub OAuth)
 - **Charts**: Recharts
-- **Export**: jsPDF
-
+- **Export**: CSV/JSON
