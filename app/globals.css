@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 17, 24, 39; /* gray-900 - dark text */
+  --background-start-rgb: 249, 250, 251; /* gray-50 - light background */
+  --background-end-rgb: 255, 255, 255; /* white */
+}
+
+/* Disable dark mode for now to ensure visibility */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 17, 24, 39; /* Keep dark text even in dark mode preference */
+    --background-start-rgb: 249, 250, 251; /* Keep light background */
+    --background-end-rgb: 255, 255, 255;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Ensure input fields are always visible */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+textarea,
+select {
+  background-color: white !important;
+  color: #111827 !important; /* gray-900 - dark text for visibility */
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="number"]::placeholder,
+textarea::placeholder {
+  color: #6b7280 !important; /* gray-500 - visible but distinct from text */
+}
+
+/* Ensure all text is visible */
+body {
+  color: #111827 !important; /* gray-900 */
+}
+
+/* Improve link visibility */
+a {
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
