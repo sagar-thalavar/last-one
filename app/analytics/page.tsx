@@ -20,6 +20,7 @@ import {
   ResponsiveContainer,
 } from "recharts"
 import { Download, ArrowLeft } from "lucide-react"
+import MobileNav from "@/components/MobileNav"
 
 interface DailyData {
   date: string
@@ -138,60 +139,24 @@ export default function AnalyticsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center space-x-8">
-              <Link href="/" className="text-xl font-bold text-gray-900">
-                One Last
-              </Link>
-              <div className="flex space-x-4">
-                <Link href="/" className="text-gray-500 hover:text-gray-900">
-                  Today
-                </Link>
-                <Link
-                  href="/calendar"
-                  className="text-gray-500 hover:text-gray-900"
-                >
-                  Calendar
-                </Link>
-                <Link
-                  href="/analytics"
-                  className="text-gray-700 hover:text-gray-900 font-medium"
-                >
-                  Analytics
-                </Link>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600">{session?.user?.email}</span>
-              <Link
-                href="/api/auth/signout"
-                className="text-sm text-gray-500 hover:text-gray-700"
-              >
-                Sign Out
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <MobileNav currentPath="/analytics" />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-6 flex justify-between items-center">
-          <div className="flex items-center space-x-4">
+      <main className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8">
+        <div className="mb-4 sm:mb-6 flex flex-col gap-3 sm:gap-0 sm:flex-row justify-between items-start sm:items-center">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <Link
               href="/"
               className="text-gray-500 hover:text-gray-700"
             >
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">Analytics</h1>
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Analytics</h1>
           </div>
-          <div className="flex items-center space-x-4">
-            <div className="flex rounded-lg border border-gray-300">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
+            <div className="flex rounded-lg border border-gray-300 w-full sm:w-auto">
               <button
                 onClick={() => handlePeriodChange("week")}
-                className={`px-4 py-2 text-sm font-medium rounded-l-lg ${
+                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-l-lg ${
                   period === "week"
                     ? "bg-blue-600 text-white"
                     : "bg-white text-gray-700 hover:bg-gray-50"
@@ -201,7 +166,7 @@ export default function AnalyticsPage() {
               </button>
               <button
                 onClick={() => handlePeriodChange("month")}
-                className={`px-4 py-2 text-sm font-medium ${
+                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium ${
                   period === "month"
                     ? "bg-blue-600 text-white"
                     : "bg-white text-gray-700 hover:bg-gray-50"
@@ -211,7 +176,7 @@ export default function AnalyticsPage() {
               </button>
               <button
                 onClick={() => handlePeriodChange("custom")}
-                className={`px-4 py-2 text-sm font-medium rounded-r-lg ${
+                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-r-lg ${
                   period === "custom"
                     ? "bg-blue-600 text-white"
                     : "bg-white text-gray-700 hover:bg-gray-50"
@@ -221,72 +186,74 @@ export default function AnalyticsPage() {
               </button>
             </div>
             {showDatePicker && period === "custom" && (
-              <div className="flex items-center space-x-2 bg-white border border-gray-300 rounded-lg px-3 py-2">
-                <label className="text-sm text-gray-600">From:</label>
-                <input
-                  type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  className="text-sm border border-gray-300 rounded px-2 py-1 bg-white text-gray-900"
-                />
-                <label className="text-sm text-gray-600">To:</label>
-                <input
-                  type="date"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                  max={new Date().toISOString().split("T")[0]}
-                  className="text-sm border border-gray-300 rounded px-2 py-1 bg-white text-gray-900"
-                />
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2 bg-white border border-gray-300 rounded-lg px-2 sm:px-3 py-2">
+                <div className="flex items-center gap-2">
+                  <label className="text-xs sm:text-sm text-gray-600 whitespace-nowrap">From:</label>
+                  <input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    className="flex-1 text-xs sm:text-sm border border-gray-300 rounded px-2 py-1 bg-white text-gray-900"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="text-xs sm:text-sm text-gray-600 whitespace-nowrap">To:</label>
+                  <input
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    max={new Date().toISOString().split("T")[0]}
+                    className="flex-1 text-xs sm:text-sm border border-gray-300 rounded px-2 py-1 bg-white text-gray-900"
+                  />
+                </div>
               </div>
             )}
-            <div className="flex space-x-2">
-              <button
-                onClick={() => handleExport("csv")}
-                className="flex items-center space-x-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50"
-              >
-                <Download className="w-4 h-4" />
-                <span>Export CSV</span>
-              </button>
-            </div>
+            <button
+              onClick={() => handleExport("csv")}
+              className="flex items-center justify-center space-x-2 px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-lg text-xs sm:text-sm font-medium text-gray-700 hover:bg-gray-50"
+            >
+              <Download className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span>Export CSV</span>
+            </button>
           </div>
         </div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-lg shadow p-6 border border-gray-200">
-            <div className="text-sm font-medium text-gray-600 mb-1">Balance Score</div>
-            <div className="text-3xl font-bold text-gray-900">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6 border border-gray-200">
+            <div className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Balance Score</div>
+            <div className="text-2xl sm:text-3xl font-bold text-gray-900">
               {Math.round(analytics.balanceScore)}
             </div>
           </div>
-          <div className="bg-white rounded-lg shadow p-6 border border-gray-200">
-            <div className="text-sm font-medium text-gray-600 mb-1">Total Hours</div>
-            <div className="text-3xl font-bold text-gray-900">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6 border border-gray-200">
+            <div className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Total Hours</div>
+            <div className="text-2xl sm:text-3xl font-bold text-gray-900">
               {analytics.totalHours.toFixed(1)}
             </div>
           </div>
-          <div className="bg-white rounded-lg shadow p-6 border border-gray-200">
-            <div className="text-sm font-medium text-gray-600 mb-1">Completion Rate</div>
-            <div className="text-3xl font-bold text-gray-900">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6 border border-gray-200">
+            <div className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Completion Rate</div>
+            <div className="text-2xl sm:text-3xl font-bold text-gray-900">
               {Math.round(analytics.completionRate * 100)}%
             </div>
           </div>
-          <div className="bg-white rounded-lg shadow p-6 border border-gray-200">
-            <div className="text-sm font-medium text-gray-600 mb-1">Missed Deadlines</div>
-            <div className="text-3xl font-bold text-red-700">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6 border border-gray-200">
+            <div className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Missed Deadlines</div>
+            <div className="text-2xl sm:text-3xl font-bold text-red-700">
               {analytics.missedDeadlines}
             </div>
           </div>
         </div>
 
         {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {/* Time Distribution Pie Chart */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
               Time Distribution
             </h2>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
               <PieChart>
                 <Pie
                   data={pieData}
@@ -316,11 +283,11 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Daily Hours Bar Chart */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
               Daily Hours Breakdown
             </h2>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
               <BarChart 
                 data={formattedDailyData.slice(-7)}
                 margin={{ top: 5, right: 10, left: 0, bottom: 30 }}
@@ -349,11 +316,11 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Task Completion Trend */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
             Task Completion Trend
           </h2>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
             <LineChart 
               data={formattedDailyData}
               margin={{ top: 5, right: 10, left: 0, bottom: 30 }}

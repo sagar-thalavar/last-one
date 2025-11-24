@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { redirect } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
+import MobileNav from "@/components/MobileNav"
 
 export default function NewTaskPage() {
   const { data: session, status } = useSession()
@@ -78,28 +79,9 @@ export default function NewTaskPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center space-x-8">
-              <Link href="/" className="text-xl font-bold text-gray-900">
-                One Last
-              </Link>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600">{session?.user?.email}</span>
-              <Link
-                href="/api/auth/signout"
-                className="text-sm text-gray-500 hover:text-gray-700"
-              >
-                Sign Out
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <MobileNav />
 
-      <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-2xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8">
         <div className="mb-6">
           <Link
             href="/"
@@ -111,7 +93,7 @@ export default function NewTaskPage() {
           <h1 className="text-2xl font-bold text-gray-900">Add New Task</h1>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow p-4 sm:p-6 space-y-4 sm:space-y-6">
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
               {error}
@@ -166,7 +148,7 @@ export default function NewTaskPage() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label htmlFor="priority" className="block text-sm font-medium text-gray-700 mb-2">
                 Priority
@@ -204,7 +186,7 @@ export default function NewTaskPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700 mb-2">
                 Due Date
@@ -292,10 +274,10 @@ export default function NewTaskPage() {
             </div>
           )}
 
-          <div className="flex justify-end space-x-4">
+          <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-4">
             <Link
               href="/"
-              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 text-center sm:text-left"
             >
               Cancel
             </Link>

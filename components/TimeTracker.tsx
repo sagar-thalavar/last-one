@@ -158,15 +158,15 @@ export default function TimeTracker() {
 
   if (activeSession) {
     return (
-      <div className="bg-white rounded-lg shadow p-6 border-2 border-blue-500">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
-              <Clock className="w-6 h-6 text-blue-600" />
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6 border-2 border-blue-500">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-3">
+          <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+              <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
             </div>
-            <div>
-              <h3 className="font-semibold text-gray-900">Time Tracking Active</h3>
-              <p className="text-sm text-gray-500">
+            <div className="min-w-0 flex-1">
+              <h3 className="font-semibold text-sm sm:text-base text-gray-900">Time Tracking Active</h3>
+              <p className="text-xs sm:text-sm text-gray-500 truncate">
                 {activeSession.module}
                 {activeSession.taskId && tasks.length > 0 && tasks.find((t) => t.id === activeSession.taskId) && (
                   <span> • {tasks.find((t) => t.id === activeSession.taskId)?.title}</span>
@@ -176,23 +176,23 @@ export default function TimeTracker() {
           </div>
           <button
             onClick={handleStop}
-            className="flex items-center space-x-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+            className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition w-full sm:w-auto justify-center"
           >
             <Square className="w-4 h-4" />
             <span>Stop</span>
           </button>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
-            <div className="text-3xl font-bold text-gray-900">
+            <div className="text-2xl sm:text-3xl font-bold text-gray-900">
               {formatDuration(elapsedTime)}
             </div>
-            <div className="text-sm text-gray-500">
+            <div className="text-xs sm:text-sm text-gray-500">
               Started at {format(new Date(activeSession.startTime), "h:mm a")}
             </div>
           </div>
           {activeSession.notes && (
-            <div className="text-sm text-gray-600 bg-gray-50 p-2 rounded">
+            <div className="text-xs sm:text-sm text-gray-600 bg-gray-50 p-2 rounded break-words max-w-full">
               {activeSession.notes}
             </div>
           )}
@@ -203,9 +203,9 @@ export default function TimeTracker() {
 
   if (showStartForm) {
     return (
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Start Time Tracker</h3>
-        <div className="space-y-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Start Time Tracker</h3>
+        <div className="space-y-3 sm:space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Module *
@@ -262,7 +262,7 @@ export default function TimeTracker() {
             />
           </div>
 
-          <div className="flex space-x-3">
+          <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-3">
             <button
               onClick={handleStart}
               disabled={isStarting}
@@ -287,17 +287,17 @@ export default function TimeTracker() {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <div className="flex items-center justify-between">
+    <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900">Time Tracker</h3>
-          <p className="text-sm text-gray-500 mt-1">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900">Time Tracker</h3>
+          <p className="text-xs sm:text-sm text-gray-500 mt-1">
             Track time spent on your tasks
           </p>
         </div>
         <button
           onClick={() => setShowStartForm(true)}
-          className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition w-full sm:w-auto justify-center"
         >
           <Play className="w-4 h-4" />
           <span>Start Tracker</span>

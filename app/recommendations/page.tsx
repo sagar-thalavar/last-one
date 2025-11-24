@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Lightbulb, CheckCircle2, X } from "lucide-react"
+import MobileNav from "@/components/MobileNav"
 
 interface Recommendation {
   id: string
@@ -95,53 +96,17 @@ export default function RecommendationsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center space-x-8">
-              <Link href="/" className="text-xl font-bold text-gray-900">
-                One Last
-              </Link>
-              <div className="flex space-x-4">
-                <Link href="/" className="text-gray-500 hover:text-gray-900">
-                  Today
-                </Link>
-                <Link
-                  href="/calendar"
-                  className="text-gray-500 hover:text-gray-900"
-                >
-                  Calendar
-                </Link>
-                <Link
-                  href="/analytics"
-                  className="text-gray-500 hover:text-gray-900"
-                >
-                  Analytics
-                </Link>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600">{session?.user?.email}</span>
-              <Link
-                href="/api/auth/signout"
-                className="text-sm text-gray-500 hover:text-gray-700"
-              >
-                Sign Out
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <MobileNav />
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-6 flex justify-between items-center">
-          <div className="flex items-center space-x-4">
+      <main className="max-w-4xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8">
+        <div className="mb-4 sm:mb-6 flex justify-between items-center">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <Link href="/" className="text-gray-500 hover:text-gray-700">
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             </Link>
             <div className="flex items-center space-x-2">
-              <Lightbulb className="w-6 h-6 text-yellow-500" />
-              <h1 className="text-2xl font-bold text-gray-900">Recommendations</h1>
+              <Lightbulb className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-500" />
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Recommendations</h1>
             </div>
           </div>
         </div>
@@ -162,48 +127,48 @@ export default function RecommendationsPage() {
             {recommendations.map((rec) => (
               <div
                 key={rec.id}
-                className={`bg-white rounded-lg shadow border-l-4 p-6 ${getPriorityColor(
+                className={`bg-white rounded-lg shadow border-l-4 p-4 sm:p-6 ${getPriorityColor(
                   rec.priority
                 )} ${rec.isRead ? "opacity-75" : ""}`}
               >
                 <div className="flex justify-between items-start mb-3">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900">{rec.title}</h3>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <h3 className="text-base sm:text-lg font-semibold text-gray-900 break-words">{rec.title}</h3>
                       {rec.priority === "high" && (
-                        <span className="px-2 py-0.5 text-xs font-medium bg-red-100 text-red-800 rounded">
+                        <span className="px-2 py-0.5 text-xs font-medium bg-red-100 text-red-800 rounded whitespace-nowrap">
                           High Priority
                         </span>
                       )}
                       {rec.isApplied && (
-                        <span className="px-2 py-0.5 text-xs font-medium bg-green-100 text-green-800 rounded">
+                        <span className="px-2 py-0.5 text-xs font-medium bg-green-100 text-green-800 rounded whitespace-nowrap">
                           Applied
                         </span>
                       )}
                     </div>
-                    <p className="text-gray-600 mb-3">{rec.description}</p>
+                    <p className="text-sm sm:text-base text-gray-600 mb-3 break-words">{rec.description}</p>
                     {rec.action && (
-                      <div className="bg-white rounded p-3 border border-gray-200">
-                        <p className="text-sm font-medium text-gray-700 mb-1">Action:</p>
-                        <p className="text-sm text-gray-600">{rec.action}</p>
+                      <div className="bg-white rounded p-2 sm:p-3 border border-gray-200">
+                        <p className="text-xs sm:text-sm font-medium text-gray-700 mb-1">Action:</p>
+                        <p className="text-xs sm:text-sm text-gray-600 break-words">{rec.action}</p>
                       </div>
                     )}
                   </div>
                 </div>
-                <div className="flex items-center space-x-2 mt-4">
+                <div className="flex flex-wrap items-center gap-2 mt-4">
                   {!rec.isApplied && (
                     <button
                       onClick={() => markAsApplied(rec.id)}
-                      className="flex items-center space-x-1 px-3 py-1.5 text-sm font-medium text-green-700 bg-green-100 rounded hover:bg-green-200"
+                      className="flex items-center space-x-1 px-3 py-1.5 text-xs sm:text-sm font-medium text-green-700 bg-green-100 rounded hover:bg-green-200"
                     >
-                      <CheckCircle2 className="w-4 h-4" />
+                      <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4" />
                       <span>Mark as Applied</span>
                     </button>
                   )}
                   {!rec.isRead && (
                     <button
                       onClick={() => markAsRead(rec.id)}
-                      className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-800"
+                      className="px-3 py-1.5 text-xs sm:text-sm text-gray-600 hover:text-gray-800"
                     >
                       Mark as Read
                     </button>
