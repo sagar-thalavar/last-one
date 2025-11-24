@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 import Link from "next/link"
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay } from "date-fns"
-import { ArrowLeft, ArrowRight, Plus } from "lucide-react"
+import { ArrowLeft, ArrowRight, Plus, X } from "lucide-react"
 import { getModuleColor } from "@/lib/utils"
 
 interface Task {
@@ -22,6 +22,8 @@ export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [tasks, setTasks] = useState<Task[]>([])
   const [loading, setLoading] = useState(true)
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -58,6 +60,13 @@ export default function CalendarPage() {
       return isSameDay(new Date(task.dueDate), date)
     })
   }
+
+  const handleShowMore = (date: Date) => {
+    setSelectedDate(date)
+    setShowModal(true)
+  }
+
+  const selectedDateTasks = selectedDate ? getTasksForDate(selectedDate) : []
 
   const previousMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))
@@ -198,9 +207,12 @@ export default function CalendarPage() {
                       </div>
                     ))}
                     {dayTasks.length > 2 && (
-                      <div className="text-xs text-gray-700 font-bold px-1.5 py-0.5 bg-gray-100 rounded">
+                      <button
+                        onClick={() => handleShowMore(day)}
+                        className="text-xs text-gray-700 font-bold px-1.5 py-0.5 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer transition w-full text-left"
+                      >
                         +{dayTasks.length - 2} more
-                      </div>
+                      </button>
                     )}
                   </div>
                 </div>
@@ -226,6 +238,81 @@ export default function CalendarPage() {
           </div>
         </div>
       </main>
+
+      {/* Tasks Modal */}
+      {showModal && selectedDate && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          onClick={() => setShowModal(false)}
+        >
+          <div
+            className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 bg-white border-b p-6 flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-gray-900">
+                Tasks for {format(selectedDate, "MMMM d, yyyy")}
+              </h2>
+              <button
+                onClick={() => setShowModal(false)}
+                className="p-2 hover:bg-gray-100 rounded-lg transition"
+              >
+                <X className="w-5 h-5 text-gray-600" />
+              </button>
+            </div>
+            <div className="p-6">
+              {selectedDateTasks.length === 0 ? (
+                <div className="text-center py-8 text-gray-500">
+                  <p>No tasks scheduled for this day.</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {selectedDateTasks.map((task) => (
+                    <div
+                      key={task.id}
+                      className={`p-4 rounded-lg border-2 ${getModuleColor(
+                        task.module
+                      )} ${task.status === "complete" ? "opacity-70" : ""}`}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-2 mb-2">
+                            <span className="text-xs font-bold px-2 py-0.5 rounded bg-white/30 text-white">
+                              {task.module}
+                            </span>
+                            {task.priority === "high" && (
+                              <span className="text-xs font-semibold px-2 py-0.5 rounded bg-red-500 text-white">
+                                High Priority
+                              </span>
+                            )}
+                            {task.status === "complete" && (
+                              <span className="text-xs font-semibold px-2 py-0.5 rounded bg-green-500 text-white">
+                                Completed
+                              </span>
+                            )}
+                          </div>
+                          <h3
+                            className={`font-semibold text-white mb-1 ${
+                              task.status === "complete" ? "line-through" : ""
+                            }`}
+                          >
+                            {task.title}
+                          </h3>
+                          {task.dueDate && (
+                            <p className="text-xs text-white/80">
+                              Due: {format(new Date(task.dueDate), "h:mm a")}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
