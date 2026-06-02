@@ -1,7 +1,7 @@
 # PowerShell script to update .env file with PostgreSQL connection string
 # Run this with: .\update-db-to-postgres.ps1
 
-$postgresUrl = 'postgresql://neondb_owner:npg_iM81KJQorYeR@ep-shy-hat-a4v0ptwq-fooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+$postgresUrl = 'postgresql://neondb_owner:npg_iM81KJQorYeR@ep-shy-hat-a4v0ptwq-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
 
 # Read existing .env file if it exists
 $envContent = @"
