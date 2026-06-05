@@ -26,7 +26,7 @@ export default function MobileNav({ currentPath = "/" }: MobileNavProps) {
           {/* Logo and Desktop Nav */}
           <div className="flex items-center space-x-4 sm:space-x-8">
             <Link href="/" className="text-lg sm:text-xl font-bold text-gray-900">
-              One Last
+              equilibrium
             </Link>
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-4">

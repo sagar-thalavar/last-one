@@ -6,7 +6,7 @@ import { Providers } from "./providers"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "One Last - Life Balance Tracker",
+  title: "equilibrium - Life Balance Tracker",
   description: "Balance your College, Work, and Life with intelligent tracking and recommendations",
 }
 

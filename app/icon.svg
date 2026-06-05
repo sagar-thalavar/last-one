@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Black circle background -->
+  <circle cx="256" cy="256" r="256" fill="#000000" />
+  
+  <!-- Left donut weight -->
+  <circle cx="160" cy="210" r="50" fill="#ffffff" />
+  <circle cx="160" cy="210" r="26" fill="#000000" />
+  
+  <!-- Right donut weight -->
+  <circle cx="352" cy="210" r="50" fill="#ffffff" />
+  <circle cx="352" cy="210" r="26" fill="#000000" />
+  
+  <!-- Beam (horizontal bar) -->
+  <rect x="100" y="260" width="312" height="24" rx="12" fill="#ffffff" />
+  
+  <!-- Fulcrum (triangle) -->
+  <path d="M 256 282 L 306 352 H 206 Z" fill="#ffffff" />
+</svg>
